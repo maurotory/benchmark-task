@@ -4,10 +4,11 @@
  for i in {100,1000,10000,100000,1000000}
  do
     for j in {1,20,50,80,100}
-    do
-        ab -c $j -n $i -k  http://localhost:3000/ >> results.tmp & \
-        top -n 1 -b | grep $1  | awk '{print $9}' >> cpu.tmp & \
+    do  
+        go run ./goab/goab.go -c $j -n $i  http://localhost:3000/ >> results.tmp & \
+        top -n 1 -b | grep $1 | awk '{print $9}' >> cpu.tmp & \
         wait
+
 
         cat results.tmp | grep -m 1 "Time per request" | awk '{print $4}' >> latency.tmp
         cat results.tmp | grep -m 1 "Transfer rate" | awk '{print $3}' >> TPS.tmp
