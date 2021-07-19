@@ -46,7 +46,7 @@ func main() {
 		Proxy: http.ProxyFromEnvironment,
 		Dial: (&net.Dialer{
 			Timeout:   30 * time.Second,
-			KeepAlive: time.Minute,
+			KeepAlive: 10 * time.Minute,
 		}).Dial,
 		TLSHandshakeTimeout: 10 * time.Second,
 	}
